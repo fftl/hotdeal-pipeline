@@ -1,13 +1,5 @@
-"""
-핫딜 파이프라인 DAG
-RSS(뽐뿌) → BigQuery raw 적재
-기존 main.py 로직을 Airflow TaskFlow API로 변환한 버전.
-"""
-
 from __future__ import annotations
-
 import pendulum
-
 from airflow.sdk import dag, task
 
 
@@ -18,6 +10,7 @@ from airflow.sdk import dag, task
     catchup=False,
     tags=["hotdeal", "portfolio"],
 )
+
 def hotdeal_pipeline():
     @task
     def fetch_and_load():

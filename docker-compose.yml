@@ -5,6 +5,8 @@
 x-airflow-common: &airflow-common
   image: apache/airflow:3.1.6
   environment: &airflow-common-env
+    AIRFLOW__CORE__INTERNAL_API_SECRET_KEY: 'hotdeal-shared-secret-please-change-no'
+    AIRFLOW__API_AUTH__JWT_SECRET: 'hotdeal-shared-secret-please-change-no'
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -67,6 +69,14 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
