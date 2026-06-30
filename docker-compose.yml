@@ -1,12 +1,8 @@
-# Airflow 3.1.6 - LocalExecutor 경량 구성 (hotdeal-pipeline)
-# 공식 docker-compose에서 Celery 스택(worker/triggerer/redis/flower/dag-processor) 제거
-# 유지: postgres + apiserver + scheduler + init
-
 x-airflow-common: &airflow-common
   image: apache/airflow:3.1.6
   environment: &airflow-common-env
-    AIRFLOW__CORE__INTERNAL_API_SECRET_KEY: 'hotdeal-shared-secret-please-change-no'
-    AIRFLOW__API_AUTH__JWT_SECRET: 'hotdeal-shared-secret-please-change-no'
+    AIRFLOW__CORE__INTERNAL_API_SECRET_KEY:${AIRFLOW__CORE__INTERNAL_API_SECRET_KEY}
+    AIRFLOW__API_AUTH__JWT_SECRET:${AIRFLOW__API_AUTH__JWT_SECRET}
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
