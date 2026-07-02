@@ -24,6 +24,8 @@ def hotdeal_pipeline():
 
         feeds = {
             "ppomppu": "https://www.ppomppu.co.kr/rss.php?id=ppomppu",
+            "ruliweb": "https://bbs.ruliweb.com/market/board/1020/rss",
+            "eomisae": "https://eomisae.co.kr/fs/rss",
         }
 
         rows = []
