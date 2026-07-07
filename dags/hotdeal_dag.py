@@ -55,5 +55,4 @@ def hotdeal_pipeline():
 
     fetch_and_load()
 
-
 hotdeal_pipeline()
