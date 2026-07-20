@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: raw
+    project: hotdeal-pipeline
+    dataset: raw
+    tables:
+      - name: hotdeals_raw
+
+models:
+  - name: stg_hotdeals
+    description: "raw.hotdeals_raw 를 정제한 staging 모델 (deal_id 표준화 / 타임스탬프 파싱 / 중복 제거)"
+    columns:
+      - name: deal_id
+        description: "{source}_{숫자ID} 형태의 표준 식별자"
+        data_tests:
+          - not_null
+          - unique
+      - name: published_at
+        description: "RFC822 문자열에서 파싱한 게시 시각 TIMESTAMP"
+        data_tests:
+          - not_null
+      - name: source
+        description: "수집 출처 (ppomppu / eomisae)"
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['ppomppu', 'eomisae']
