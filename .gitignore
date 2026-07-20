@@ -15,3 +15,8 @@ auth/
 # Airflow
 logs/
 config/
+
+# dbt & uv
+target/
+dbt_packages/
+.venv/
