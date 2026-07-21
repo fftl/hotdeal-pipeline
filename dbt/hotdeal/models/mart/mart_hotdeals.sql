@@ -22,7 +22,7 @@ final as (
  
         -- 서울 시간대 기준 분석 컬럼 (published_at 은 UTC 기준 TIMESTAMP)
         date(published_at, 'Asia/Seoul')                     as deal_date,
-        extract(hour from datetime(published_at, 'Asia/Seoul'))   as deal_hour,
+        cast(extract(hour from datetime(published_at, 'Asia/Seoul')) as int64)   as deal_hour,
         format_datetime('%A', datetime(published_at, 'Asia/Seoul')) as deal_weekday
  
     from staged
